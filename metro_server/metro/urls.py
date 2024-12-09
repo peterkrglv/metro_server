@@ -26,6 +26,6 @@ urlpatterns = [
     # path("user/", views.user),
     # path("coffee/", views.coffee),
     path('login', views.login),
-    path("hello", lambda response: JsonResponse({"Hello": "Hello world!"}))
-
+    path("hello", lambda response: JsonResponse({"Hello": "Hello world!"})),
+    path('', lambda response: HttpResponse('<h1><span style="color: red;">This</span> is a main page</h1>'))
 ]
