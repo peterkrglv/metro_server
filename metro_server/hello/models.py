@@ -24,15 +24,14 @@ class UserModel(models.Model):
         }
 
 class LineModel(models.Model):
-    name = models.CharField(max_length=63)
-    color = models.IntegerField()
-    stations = ArrayField(models.CharField(max_length=63))
+    name = models.CharField(max_length=63, default='')
+    color = models.IntegerField(default=0)
+    #stations = ArrayField(models.CharField(max_length=63))
 
     def to_dict(self):
         return {
             "name": self.name,
-            "color": self.color,
-            "stations": self.stations ##not sure this is gonna work
+            "color": self.color
         }
 
     # Line -> Stations
