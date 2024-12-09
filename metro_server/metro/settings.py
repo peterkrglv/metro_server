@@ -78,14 +78,6 @@ WSGI_APPLICATION = 'metro.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': "metro",
-    #     "USER": "postgres",
-    #     "PASSWORD": "991004",
-    #     "HOST": "localhost",
-    #     "PORT": "5432"
-    # }
 }
 
 
