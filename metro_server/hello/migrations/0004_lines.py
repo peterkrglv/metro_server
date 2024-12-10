@@ -40,7 +40,7 @@ def add_lines_and_stations(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hello', '0001_initial'),
+        ('hello', '0003_linemodel_color_linemodel_name_alter_usermodel_email_and_more'),
     ]
 
     operations = [
