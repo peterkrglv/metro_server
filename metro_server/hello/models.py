@@ -2,15 +2,15 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
-class TestModel(models.Model):
-    name = models.CharField(max_length=255)
-    age = models.IntegerField()
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
+# class TestModel(models.Model):
+#     name = models.CharField(max_length=255)
+#     age = models.IntegerField()
+#     description = models.TextField()
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     def __str__(self):
+#         return self.name
 
 
 class UserModel(models.Model):
@@ -27,9 +27,9 @@ class UserModel(models.Model):
 
 
 class LineModel(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=63, unique=True, default="")
-    color = models.BigIntegerField(default=0)
+    num = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=63, unique=True)
+    color = models.BigIntegerField()
 
     def to_dict(self):
         return {
@@ -42,7 +42,6 @@ class StationModel(models.Model):
     num = models.IntegerField()
     name = models.CharField(max_length=63)
     line = models.ForeignKey(LineModel, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.name
@@ -61,7 +60,7 @@ class PostModel(models.Model):
     station = models.ForeignKey(StationModel, on_delete=models.CASCADE)
     text = models.CharField(max_length=2047)
     date = models.DateField(auto_now_add=True)
-    photo = models.ImageField(upload_to="photos", blank=True)
+    photo_url = models.CharField()
 
     def to_dict(self):
         return {

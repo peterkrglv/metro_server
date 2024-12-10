@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7)pxi*s!ph3c@d*0-e9#_)xe8%^kj_3v$$r2(r!^wsh!+gy!uf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['metro-server-rc8a.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,7 +77,14 @@ WSGI_APPLICATION = 'metro.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default="postgresql://peter:BbP1TfTKDoKH0LfMJJtegFsLTDDBrrQA@dpg-ctbneqpu0jms73coh87g-a/metro_db_hmvp")
+'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "metro",
+        "USER": "postgres",
+        "PASSWORD": "991004",
+        "HOST": "localhost",
+        "PORT": "5432"
+    }
 }
 
 
