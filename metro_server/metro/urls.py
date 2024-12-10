@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
-from hello import views
+from hello.views import login, sign_up, get_lines
 
 urlpatterns = [
     path("hello", lambda response: JsonResponse({"Hello": "Hello world!"})),
     path('', lambda response: HttpResponse('<h1><span style="color: red;">This</span> is a main page</h1>')),
-    path('login', views.login),
-    path('signup', views.sign_up),
+    path('login', login),
+    path('signup', sign_up),
+    path('get_lines', get_lines)
 ]
