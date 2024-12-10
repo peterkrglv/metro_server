@@ -29,7 +29,7 @@ class UserModel(models.Model):
 class LineModel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=63, unique=True, default="")
-    color = models.IntegerField(default=0)
+    color = models.BigIntegerField(default=0)
 
     def to_dict(self):
         return {
