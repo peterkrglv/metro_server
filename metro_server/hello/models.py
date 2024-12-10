@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+
 class TestModel(models.Model):
     name = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -11,9 +12,10 @@ class TestModel(models.Model):
     def __str__(self):
         return self.name
 
+
 class UserModel(models.Model):
-    username = models.CharField(max_length=255)
-    email = models.CharField(max_length=511)
+    username = models.CharField(max_length=255, unique=True)
+    email = models.CharField(max_length=511, unique=True)
     password = models.CharField(max_length=255)
 
     def to_dict(self):
@@ -23,17 +25,27 @@ class UserModel(models.Model):
             "password": self.password
         }
 
+
 class LineModel(models.Model):
-    name = models.CharField(max_length=63)
-    color = models.IntegerField()
-    stations = ArrayField(models.CharField(max_length=63))
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=63, unique=True, default="")
+    color = models.IntegerField(default=0)
 
     def to_dict(self):
         return {
             "name": self.name,
             "color": self.color,
-            "stations": self.stations ##not sure this is gonna work
         }
+
+
+class StationModel(models.Model):
+    num = models.IntegerField()
+    name = models.CharField(max_length=63)
+    line = models.ForeignKey(LineModel, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return self.name
 
     # Line -> Stations
     # {
@@ -45,18 +57,15 @@ class LineModel(models.Model):
 
 
 class PostModel(models.Model):
-    user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-    username = models.CharField(max_length=255)
-    station = models.CharField(max_length=63)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    station = models.ForeignKey(StationModel, on_delete=models.CASCADE)
     text = models.CharField(max_length=2047)
     date = models.DateField(auto_now_add=True)
     photo = models.ImageField(upload_to="photos", blank=True)
 
     def to_dict(self):
         return {
-            "user_id": self.user_id,
-            "username": self.username,
-            "station": self.station,
+            "username": self.user.username,
             "text": self.text,
             "date": self.date,
             "photo": self.photo
