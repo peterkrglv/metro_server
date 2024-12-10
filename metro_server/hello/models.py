@@ -33,6 +33,7 @@ class LineModel(models.Model):
 
     def to_dict(self):
         return {
+            "num": str(self.num),
             "name": self.name,
             "color": self.color,
         }
