@@ -56,8 +56,14 @@ def get_lines(request):
     res = []
     for line in lines:
         line_res = line.to_dict()
-        stations = models.StationModel.objects.filter(line=line)
-        line_res["stations"] = map(lambda station: str, stations)
+        stations = (
+            models
+            .StationModel
+            .objects
+            .filter(line=line)
+            .order_by("num")
+        )
+        line_res["stations"] = list(map(str, stations))
         res.append(line_res)
 
     return JsonResponse({"lines": res})
