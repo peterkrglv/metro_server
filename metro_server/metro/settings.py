@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'metro.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://peter:BbP1TfTKDoKH0LfMJJtegFsLTDDBrrQA@dpg-ctbneqpu0jms73coh87g-a/metro_db_hmvp")
+        default="postgresql://postgresql:bWTLDOkVtcAgCZ7lcOIRYtGEqrsiIvIX@dpg-ctcasdbtq21c73fnkrcg-a/metro_postgres_peter")
 }
 
 
