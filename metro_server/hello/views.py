@@ -74,13 +74,12 @@ def get_lines(request):
 def get_posts_from_station(request):
     station = request.GET("station")
     posts = models.PostModel.objects.filter(station=station)
-    return JsonResponse({"posts": map(lambda post: post.to_dict(), posts)})
-
-
-def get_posts_from_user(request):
-    user = request.GET("user")
-    posts = models.PostModel.objects.filter(user=user)
-    return JsonResponse({"posts": map(lambda post: post.to_dict(), posts)})
+    res = []
+    for post in posts:
+        post_res = post.to_dict()
+        post_res["image"] = request.build_absolute_uri(post.image.url)
+        res.append(post_res)
+    return JsonResponse({"posts": res})
 
 
 def create_post(request):
@@ -102,3 +101,4 @@ def create_post(request):
         photo=image
     )
     return JsonResponse({"result": "Success"})
+

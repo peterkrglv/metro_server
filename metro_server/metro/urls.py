@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
-from hello.views import login, sign_up, get_lines, create_post
+from hello.views import login, sign_up, get_lines, create_post, get_posts_from_station
 from metro import settings
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('signup', sign_up),
     path('get_lines', get_lines),
     path('create_post', create_post),
+    path('get_posts', get_posts_from_station),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

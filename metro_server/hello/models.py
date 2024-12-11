@@ -68,5 +68,5 @@ class PostModel(models.Model):
             "username": self.user.username,
             "text": self.text,
             "date": self.date,
-            "photo": self.photo
+            "image": self.image
         }
