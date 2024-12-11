@@ -47,6 +47,7 @@ def sign_up(request):
         email=email,
         password=password
     )
+
     return JsonResponse({"result": "Success"})
 
 
@@ -71,22 +72,25 @@ def get_lines(request):
 
 ##Posts
 def get_posts_from_station(request):
-    station = request.GET("station")
+    station_name = request.GET["station"]
+    station = models.StationModel.objects.filter(name=station_name).first()
     posts = models.PostModel.objects.filter(station=station)
-    return JsonResponse({"posts": map(lambda post: post.to_dict(), posts)})
-
-
-def get_posts_from_user(request):
-    user = request.GET("user")
-    posts = models.PostModel.objects.filter(user=user)
-    return JsonResponse({"posts": map(lambda post: post.to_dict(), posts)})
+    res = []
+    for post in posts:
+        post_res = post.to_dict()
+        post_res["image"] = request.build_absolute_uri(post.image.url)
+        res.append(post_res)
+    return JsonResponse({"posts": res})
 
 
 def create_post(request):
+    if request.method != "POST" or not request.FILES.get('image'):
+        return JsonResponse({"result": "Invalid method"}, status=405)
+
     username = request.GET("username")
     station_name = request.GET("station")
     text = request.GET("text")
-    photo = request.GET("photo")
+    image = request.FILES["image"]
     user = models.UserModel.objects.filter(username=username).first()
     station = models.StationModel.objects.filter(name=station_name).first()
     if user is None or station is None:
@@ -95,6 +99,7 @@ def create_post(request):
         user=user,
         station=station,
         text=text,
-        photo=photo
+        photo=image
     )
     return JsonResponse({"result": "Success"})
+

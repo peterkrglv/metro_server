@@ -61,12 +61,12 @@ class PostModel(models.Model):
     station = models.ForeignKey(StationModel, on_delete=models.CASCADE)
     text = models.CharField(max_length=2047)
     date = models.DateField(auto_now_add=True)
-    photo_url = models.CharField()
+    image = models.ImageField(upload_to="uploads/", default="default.jpg")
 
     def to_dict(self):
         return {
             "username": self.user.username,
             "text": self.text,
             "date": self.date,
-            "photo": self.photo
+            "image": self.image
         }
