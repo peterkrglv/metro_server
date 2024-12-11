@@ -72,7 +72,8 @@ def get_lines(request):
 
 ##Posts
 def get_posts_from_station(request):
-    station = request.GET("station")
+    station_name = request.GET["station"]
+    station = models.StationModel.objects.filter(name=station_name).first()
     posts = models.PostModel.objects.filter(station=station)
     res = []
     for post in posts:
