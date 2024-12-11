@@ -31,3 +31,4 @@ urlpatterns = [
     path('create_post', create_post),
     path('get_posts', get_posts_from_station),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
